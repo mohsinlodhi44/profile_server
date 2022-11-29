@@ -1,7 +1,7 @@
 const baseUrl = process.env.API_ROOT || "https://aws.linkst.ar/api";
 
 const getProfileByUsername = (subdomain)=>{
-    return Promise((resolve, reject)=>{
+    return new Promise((resolve, reject)=>{
         
         fetch(baseUrl + "/get_fullname",
         {
@@ -17,10 +17,38 @@ const getProfileByUsername = (subdomain)=>{
         }
         reject(false);
         return;
+        }).catch(err=>{
+            reject(false);
+            return;
+        })
+
+    });
+
+}
+const updateDomainStatus = (data)=>{
+    return new Promise((resolve, reject)=>{
+        
+        fetch(baseUrl + "/user/update_domain",
+        {
+        method: 'POST',
+        mode: "cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+        }).then((res) => {
+        return res.json();
+        }).then((body) => {
+        if (body.success) {
+            return resolve(body.data);
+        }
+        reject(false);
+        return;
+        }).catch(err=>{
+            reject(false);
+            return;
         })
 
     });
 
 }
 
-module.exports = {getProfileByUsername};
+module.exports = {getProfileByUsername, updateDomainStatus};

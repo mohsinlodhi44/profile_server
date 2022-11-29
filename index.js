@@ -5,8 +5,9 @@ const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const {getProfileByUsername} = require('./Api/index');
+const {getProfileByUsername, updateDomainStatus} = require('./Api/index');
 
+app.use(express.json());
 // static resources should just be served as they are
 app.use(express.static(
     path.resolve(__dirname, 'html'),
@@ -38,6 +39,24 @@ app.get('/*', (req, res, next) => {
         .catch(()=> res.status(301).redirect('https://linkst.ar') );
 
     });
+  });
+
+  app.post('/api',(req, res)=>{
+    if(!req?.body?.user_id || !req?.body?.domain_id){
+        return res.status(400).send('Data required');
+    }
+    try{
+        updateDomainStatus(req.body)
+        .then(data=>{
+            return res.status(200).json({success:true})
+        })
+        .catch(err=>{
+            return res.status(400).json({success:false})
+        })
+    }catch(e){
+        console.log('error: ',e);
+        return res.status(400).send('Something went wrong');
+    }
   });
 
 app.listen(PORT, (error) => {
