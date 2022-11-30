@@ -41,7 +41,7 @@ app.get('/*', (req, res, next) => {
     });
   });
 
-  app.post('/api',(req, res)=>{
+  app.post('/verify/api',(req, res)=>{
     if(!req?.body?.user_id || !req?.body?.domain_id){
         return res.status(400).send('Data required');
     }
