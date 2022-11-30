@@ -45,12 +45,14 @@ app.get('/*', (req, res, next) => {
     if(!req?.body?.user_id || !req?.body?.domain_id){
         return res.status(400).send('Data required');
     }
+    console.log('Received:' ,req.body);
     try{
         updateDomainStatus(req.body)
         .then(data=>{
             return res.status(200).json({success:true})
         })
         .catch(err=>{
+        console.log('Err:' ,err);
             return res.status(400).json({success:false})
         })
     }catch(e){

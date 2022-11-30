@@ -18,12 +18,12 @@ const getProfileByUsername = (subdomain)=>{
         if (body.success) {
             return resolve({fullname: body.data?.fullname, icon: body.data?.icon});
         }
-        reject(false);
+        reject(body);
         return;
         }).catch(err=>{
         console.log('err response: ',res)
 
-            reject(false);
+            reject(err);
             return;
         })
 
