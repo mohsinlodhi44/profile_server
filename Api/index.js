@@ -45,10 +45,10 @@ const updateDomainStatus = (data)=>{
         if (body.success) {
             return resolve(body.data);
         }
-        reject(false);
+        reject(body);
         return;
         }).catch(err=>{
-            reject(false);
+            reject(err);
             return;
         })
 
