@@ -1,3 +1,5 @@
+const fetch = require("node-fetch");
+
 const baseUrl = process.env.API_ROOT || "https://aws.linkst.ar/api";
 
 const getProfileByUsername = (subdomain)=>{
