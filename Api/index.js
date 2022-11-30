@@ -10,6 +10,7 @@ const getProfileByUsername = (subdomain)=>{
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: subdomain })
         }).then((res) => {
+            console.log('response: ',res)
         return res.json();
         }).then((body) => {
         if (body.success) {
@@ -18,6 +19,8 @@ const getProfileByUsername = (subdomain)=>{
         reject(false);
         return;
         }).catch(err=>{
+        console.log('err response: ',res)
+
             reject(false);
             return;
         })
